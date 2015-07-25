@@ -3,40 +3,46 @@
 		<title>Portfolio</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" href="css/bootstrap.css">
+		<link rel="stylesheet" href="css/style.css">
+		<link href='http://fonts.googleapis.com/css?family=Lato:100,300' rel='stylesheet' type='text/css'>
 	</head>
 	<body>
 		<div class="container">
-			<div class="header">
-				<div class="logo"><img class="udacity-logo" src="http://cameronwp.github.io/cpcom/static/udacity_logo.svg" alt="Udacity Logo"></div>
-				<div class="owner-info">
-					<p class="owner-name">DAWEI XIA</p>
-					<p class="owner-slogan">FRONT-END NINJIA</p>
+			<div class="row">
+				<div class="col-md-6">
+					<img  class="logo"src="images/udacity-logo.jpg" alt="Logo">
+				</div>
+				<div class="col-md-6 text-right text-uppercase">
+					<h1 class="text-thin super-title">DAWEI XIA</h1>
+					<h4>FRONT-NINJIA</h4>
 				</div>
 			</div>
-			<div class="straight-line"></div>
-			<div class="big-picture">
-				<img src="images/big-picture.jpg" alt="A show case">
+			<div class="row">
+				<hr class="line-muted">
 			</div>
-			<div class="featured-work-gallary">
-				<div class="title">Featured Work</div>
-				<div class="featured-work">
-					<div class="featured-work-face"><img src="images/appify.jpg" alt="appify"></div>
-					<div class="featured-work-name">APPIFY</div>
-					<div class="featured-work-link"><a href="images/appify.jpg">images/appify.jpg</a></div>
-				</div>
-				<div class="featured-work">
-					<div class="featured-work-face"><img src="images/sunflower.jpg" alt="sunflower"></div>
-					<div class="featured-work-name">SUNFLOWER</div>
-					<div class="featured-work-link"><a href="images/sunflower.jpg">images/sunflower.jpg</a></div>
-				</div>
-				<div class="featured-work">
-					<div class="featured-work-face"><img src="images/bokeh.jpg" alt="bokeh"></div>
-					<div class="featured-work-name">BOKEH</div>
-					<div class="featured-work-link"><a href="images/bokeh.jpg">images/bokeh.jpg</a></div>
-				</div>
+			<div class="row">
+				<img class="img-responsive" src="http://placehold.it/1170x300" alt="Project Image 1">
 			</div>
+			<div class="row">
+				<h1 class="text-muted">Featured Work</h1>
+			</div>
+			<div class="row text-center">
+				<div class="col-md-4">
+					<img class="img-responsive" src="http://placehold.it/360x200" alt="Appify">
+					<h3 class="text-uppercase">Appify</h3>
+					<p>https://github.com/udacity/appify</p>
+				</div>
+				<div class="col-md-4">
+					<img class="img-responsive" src="http://placehold.it/360x200" alt="Sunflower">
+					<h3 class="text-uppercase">Sunflower</h3>
+					<p>https://github.com/udacity/sunflower</p>
+				</div>
+				<div class="col-md-4">
+					<img class="img-responsive" src="http://placehold.it/360x200" alt="Boken">
+					<h3 class="text-uppercase">Boken</h3>
+					<p>https://github.com/udacity/boken</p>
+				</div>
 		</div>
 	</body>
 </html>
