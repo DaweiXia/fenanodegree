@@ -95,7 +95,7 @@ ul {
 .nav__item {
   box-sizing: border-box;
   display: inline-block;
-  width: 24%;
+  min-width: 24%;
   text-align: center;
   line-height: 24px;
   padding: 24px;
