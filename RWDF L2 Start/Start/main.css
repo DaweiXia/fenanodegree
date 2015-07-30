@@ -368,5 +368,6 @@ footer li {
 
 footer a {
   text-decoration: none;
+  padding: 1.5em;
   color: #333;
 }
