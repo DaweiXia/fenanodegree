@@ -3,9 +3,11 @@
 		<title>Portfolio</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="css/bootstrap.css">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/style.css">
 		<link href='http://fonts.googleapis.com/css?family=Lato:100,300' rel='stylesheet' type='text/css'>
+		<script src="js/jquery-1.11.3.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
 	</head>
 	<body>
 		<div class="container">
@@ -22,27 +24,45 @@
 				<hr class="line-muted">
 			</div>
 			<div class="row">
-				<img class="img-responsive" src="http://placehold.it/1170x300" alt="Project Image 1">
+				<img class="img-responsive" src=" http://www.placebear.com/1170/300" alt="Project Image 1">
 			</div>
 			<div class="row">
 				<h1 class="text-muted">Featured Work</h1>
 			</div>
 			<div class="row text-center">
 				<div class="col-md-4">
-					<img class="img-responsive" src="http://placehold.it/360x200" alt="Appify">
+					<img class="img-responsive" data-toggle="modal" data-target="#myModal1" src="http://www.placebear.com/360/200" alt="Appify">
 					<h3 class="text-uppercase">Appify</h3>
 					<p>https://github.com/udacity/appify</p>
 				</div>
 				<div class="col-md-4">
-					<img class="img-responsive" src="http://placehold.it/360x200" alt="Sunflower">
+					<img class="img-responsive" src="http://www.placebear.com/360/200" alt="Sunflower">
 					<h3 class="text-uppercase">Sunflower</h3>
 					<p>https://github.com/udacity/sunflower</p>
 				</div>
 				<div class="col-md-4">
-					<img class="img-responsive" src="http://placehold.it/360x200" alt="Boken">
+					<img class="img-responsive" src="http://www.placebear.com/360/200" alt="Boken">
 					<h3 class="text-uppercase">Boken</h3>
 					<p>https://github.com/udacity/boken</p>
 				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">Appify</h4>
+		      </div>
+		      <div class="modal-body">
+		        <img src="http://www.placebear.com/360/200" alt="Appify">
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary">Save changes</button>
+		      </div>
+		    </div>
+		  </div>
 		</div>
 	</body>
 </html>
