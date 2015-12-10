@@ -510,9 +510,15 @@ function updatePositions() {
       visible_items.push(items[i]);
     }
   }
-  for (var i = 0; i < visible_items.length; i++) {
+
+  var positions = new Array();
+  for(var i = 0; i < visible_items.length; i++){
     var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
-    visible_items[i].style.left = visible_items[i].basicLeft + 100 * phase + 'px';
+    positions.push(visible_items[i].basicLeft + 100 * phase + 'px');
+  }
+
+  for (var i = 0; i < visible_items.length; i++) {
+    visible_items[i].style.left = positions[i];
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
