@@ -30,6 +30,12 @@ Some useful tips to help you get started:
 
 Profile, optimize, measure... and then lather, rinse, and repeat. Good luck!
 
+#####Here is my optimization
+
+1. Unblock font downloading
+
+2. Minify and inline critical CSS
+
 ####Part 2: Optimize Frames per Second in pizza.html
 
 To optimize views/pizza.html, you will need to modify views/js/main.js until your frames per second rate is 60 fps or higher. You will find instructive comments in main.js. 
@@ -47,6 +53,18 @@ You might find the FPS Counter/HUD Display useful in Chrome developer tools desc
 * <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/optimize-encoding-and-transfer.html">Reduce the size of text</a>
 * <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/image-optimization.html">Optimize images</a>
 * <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching.html">HTTP caching</a>
+
+#####Here is my optimization
+
+1. Decrease the number of sliding pizzas;
+
+2. Stop FSL in updatePositions in views/js/main.js
+
+3. Add backface-visibility to .mover in views/css/style.css
+
+4. Select all randomPizzaContainer at once in changePizzaSizes in views/css/main.js
+
+5. Remove dermineDx function and add code to changePizzas to get new width;
 
 ### Customization with Bootstrap
 The portfolio was built on Twitter's <a href="http://getbootstrap.com/">Bootstrap</a> framework. All custom styles are in `dist/css/portfolio.css` in the portfolio repo.
