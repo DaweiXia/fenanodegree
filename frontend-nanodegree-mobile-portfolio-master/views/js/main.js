@@ -421,39 +421,29 @@ var resizePizzas = function(size) {
 
   changeSliderLabel(size);
 
-  // Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
-  function determineDx (elem, size) {
-    var oldwidth = elem.offsetWidth;
-    var windowwidth = document.querySelector("#randomPizzas").offsetWidth;
-    var oldsize = oldwidth / windowwidth;
-
-    // TODO: change to 3 sizes? no more xl?
-    // Changes the slider value to a percent width
-    function sizeSwitcher (size) {
-      switch(size) {
-        case "1":
-          return 0.25;
-        case "2":
-          return 0.3333;
-        case "3":
-          return 0.5;
-        default:
-          console.log("bug in sizeSwitcher");
-      }
-    }
-
-    var newsize = sizeSwitcher(size);
-    var dx = (newsize - oldsize) * windowwidth;
-
-    return dx;
-  }
-
   // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
-    for (var i = 0; i < document.querySelectorAll(".randomPizzaContainer").length; i++) {
-      var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[i], size);
-      var newwidth = (document.querySelectorAll(".randomPizzaContainer")[i].offsetWidth + dx) + 'px';
-      document.querySelectorAll(".randomPizzaContainer")[i].style.width = newwidth;
+    //remove function determinDX and get new width
+    //in a simpler way.
+    switch(size) {
+        case "1":
+          newwidth = 25;
+          break;
+        case "2":
+          newwidth = 33.33;
+          break;
+        case "3":
+          newwidth = 50;
+          break;
+        default:
+          console.log("bug in sizeSwitcher");
+    }
+
+    //Pick all containers once
+    var items = document.querySelectorAll(".randomPizzaContainer");
+
+    for (var i = 0; i < items.length; i++) {
+      items[i].style.width = newwidth + '%';
     }
   }
 
@@ -503,6 +493,9 @@ function updatePositions() {
   window.performance.mark("mark_start_frame");
   var items = document.getElementsByClassName('mover');
 
+  //In order to avoid FSL,
+  //At first, acquire all new positions,
+  //then change positions.
   var positions = new Array();
   for(var i = 0; i < items.length; i++){
     var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
@@ -530,6 +523,8 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
+
+  //We don't need to generate too much mover
   for (var i = 0; i < 20; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
