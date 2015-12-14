@@ -497,8 +497,9 @@ function updatePositions() {
   //At first, acquire all new positions,
   //then change positions.
   var positions = new Array();
+  var scrollTopRatio = document.body.scrollTop / 1250;
   for(var i = 0; i < items.length; i++){
-    var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
+    var phase = Math.sin(scrollTopRatio + (i % 5));
     positions.push(items[i].basicLeft + 100 * phase + 'px');
   }
 
