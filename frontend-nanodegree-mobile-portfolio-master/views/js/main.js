@@ -525,7 +525,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
 
-  //We don't need to generate too much mover
+  // At least, we need to add 48 movers
   for (var i = 0; i < 48; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
