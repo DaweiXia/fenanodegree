@@ -440,7 +440,7 @@ var resizePizzas = function(size) {
     }
 
     //Pick all containers once
-    var items = document.querySelectorAll(".randomPizzaContainer");
+    var items = document.getElementsByClassName("randomPizzaContainer");
 
     for (var i = 0; i < items.length; i++) {
       items[i].style.width = newwidth + '%';
