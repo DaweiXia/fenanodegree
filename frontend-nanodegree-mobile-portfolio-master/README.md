@@ -64,9 +64,13 @@ You might find the FPS Counter/HUD Display useful in Chrome developer tools desc
 #####Here is my optimizations
 1. Create 48 movers not 200 when load the page.
 
-2. Pick all movers by getElementsByClassName, not by querySelectorAll in function updatePositions;
+2. Pick all movers by getElementsByClassName, not by querySelectorAll in function updatePositions.
 
 3. Solve FSL by getting scrollTopRatio out of the for loop.
+
+4. Add backface-visibility: hidden to mover to force it stay on its own layer.
+
+5. Move mover selector out of the function updatePositions, because we only need to pick movers once.
 ### Customization with Bootstrap
 The portfolio was built on Twitter's <a href="http://getbootstrap.com/">Bootstrap</a> framework. All custom styles are in `dist/css/portfolio.css` in the portfolio repo.
 
