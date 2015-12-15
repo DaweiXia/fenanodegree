@@ -35,6 +35,10 @@ Profile, optimize, measure... and then lather, rinse, and repeat. Good luck!
 
 2. Use media query to unblock print.css
 
+3. Move fontloader code to the bottom of index.html to unblock it.
+
+4. Move google analytics js to the bottom of the index.html to unblock it.
+
 
 ####Part 2: Optimize Frames per Second in pizza.html
 
