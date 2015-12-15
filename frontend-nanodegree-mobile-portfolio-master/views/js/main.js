@@ -502,7 +502,7 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
-  var items = document.getElementsByClassName('mover');
+  // Solve FSL by getting scrollTopRatio out of the loop
   var scrollTopRatio = document.body.scrollTop / 1250;
   for (var i = 0; i < items.length; i++) {
     var phase = Math.sin( scrollTopRatio + (i % 5));
@@ -538,5 +538,9 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
     document.querySelector("#movingPizzas1").appendChild(elem);
   }
+
   updatePositions();
 });
+
+// we only need to pick all movers once
+var items = document.getElementsByClassName('mover');
