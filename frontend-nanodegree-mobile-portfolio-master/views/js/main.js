@@ -450,10 +450,13 @@ var resizePizzas = function(size) {
 
   // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
-    for (var i = 0; i < document.querySelectorAll(".randomPizzaContainer").length; i++) {
-      var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[i], size);
-      var newwidth = (document.querySelectorAll(".randomPizzaContainer")[i].offsetWidth + dx) + 'px';
-      document.querySelectorAll(".randomPizzaContainer")[i].style.width = newwidth;
+    // Pick all randomPizzaContainers once
+    var randomPizzaContainers = document.querySelectorAll(".randomPizzaContainer");
+
+    for (var i = 0; i < randomPizzaContainers.length; i++) {
+      var dx = determineDx(randomPizzaContainers[i], size);
+      var newwidth = (randomPizzaContainers[i].offsetWidth + dx) + 'px';
+      randomPizzaContainers[i].style.width = newwidth;
     }
   }
 
@@ -502,7 +505,7 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
-  // Solve FSL by getting scrollTopRatio out of the loop
+  // Solve FSL by getting scrollTopRatio out of the for loop
   var scrollTopRatio = document.body.scrollTop / 1250;
   for (var i = 0; i < items.length; i++) {
     var phase = Math.sin( scrollTopRatio + (i % 5));
