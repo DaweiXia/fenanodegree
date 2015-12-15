@@ -43,6 +43,8 @@ Profile, optimize, measure... and then lather, rinse, and repeat. Good luck!
 
 6. Inline CSS by hand.
 
+7. Minify and Inline CSS and JavaScript.
+
 ####Part 2: Optimize Frames per Second in pizza.html
 
 To optimize views/pizza.html, you will need to modify views/js/main.js until your frames per second rate is 60 fps or higher. You will find instructive comments in main.js.
