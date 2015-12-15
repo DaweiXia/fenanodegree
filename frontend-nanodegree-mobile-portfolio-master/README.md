@@ -73,6 +73,9 @@ You might find the FPS Counter/HUD Display useful in Chrome developer tools desc
 5. Move mover selector out of the function updatePositions, because we only need to pick movers once.
 
 6. Pick all randomPizzaContainers once.
+
+7. Remove determineDx to get newwidth more straightforward and resolve the FSL.
+
 ### Customization with Bootstrap
 The portfolio was built on Twitter's <a href="http://getbootstrap.com/">Bootstrap</a> framework. All custom styles are in `dist/css/portfolio.css` in the portfolio repo.
 
