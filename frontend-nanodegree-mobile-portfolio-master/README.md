@@ -33,6 +33,8 @@ Profile, optimize, measure... and then lather, rinse, and repeat. Good luck!
 #####Here is my optimization
 1. Load font by webfont loader;
 
+2. Use media query to unblock print.css
+
 
 ####Part 2: Optimize Frames per Second in pizza.html
 
