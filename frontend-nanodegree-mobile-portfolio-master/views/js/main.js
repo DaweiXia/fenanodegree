@@ -494,7 +494,7 @@ function updatePositions() {
   // Solve FSL by getting scrollTopRatio out of the for loop
   var scrollTopRatio = document.body.scrollTop / 1250;
   var phase;
-  for (var i = 0; i < items.length; i++) {
+  for (var i = 0, len = items.length; i < len; i++) {
     phase = Math.sin( scrollTopRatio + (i % 5));
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
