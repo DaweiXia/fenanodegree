@@ -519,8 +519,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // 48 movers are enough
   var movingPizzas1 = document.getElementById("movingPizzas1")
+  var elem;
   for (var i = 0; i < 48; i++) {
-    var elem = document.createElement('img');
+    elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
     elem.style.height = "100px";
