@@ -518,6 +518,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var s = 256;
 
   // 48 movers are enough
+  var movingPizzas1 = document.getElementById("movingPizzas1")
   for (var i = 0; i < 48; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
@@ -526,7 +527,7 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.style.width = "73.333px";
     elem.basicLeft = (i % cols) * s;
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
-    document.getElementById("movingPizzas1").appendChild(elem);
+    movingPizzas1.appendChild(elem);
   }
 
   updatePositions();
