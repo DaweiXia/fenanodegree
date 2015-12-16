@@ -92,6 +92,8 @@ You might find the FPS Counter/HUD Display useful in Chrome developer tools desc
 
 14. Optimize sliding pizzas generator by picking movingPizzas1 once.
 
+15. Optimize sliding pizzas generator by creating variable elem outside the for loop.
+
 ### Customization with Bootstrap
 The portfolio was built on Twitter's <a href="http://getbootstrap.com/">Bootstrap</a> framework. All custom styles are in `dist/css/portfolio.css` in the portfolio repo.
 
