@@ -84,6 +84,8 @@ You might find the FPS Counter/HUD Display useful in Chrome developer tools desc
 
 10. Optimize pizza generator by picking randomPizzas outside.
 
+11. Optimize updatePositions by create variable phase outside the for loop.
+
 ### Customization with Bootstrap
 The portfolio was built on Twitter's <a href="http://getbootstrap.com/">Bootstrap</a> framework. All custom styles are in `dist/css/portfolio.css` in the portfolio repo.
 
