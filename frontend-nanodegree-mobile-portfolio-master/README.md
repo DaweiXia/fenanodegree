@@ -78,6 +78,8 @@ You might find the FPS Counter/HUD Display useful in Chrome developer tools desc
 
 7. Remove determineDx to get newwidth more straightforward and resolve the FSL.
 
+8. Pick all pizza containers once by getElementsByClassName in changePizzaSizes function.
+
 ### Customization with Bootstrap
 The portfolio was built on Twitter's <a href="http://getbootstrap.com/">Bootstrap</a> framework. All custom styles are in `dist/css/portfolio.css` in the portfolio repo.
 
