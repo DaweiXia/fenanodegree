@@ -44,6 +44,8 @@ var locationModel = function(location) {
 
 	self.animation = function(){
 		infoWindow.open(map, self.marker);
+		self.marker.setAnimation(google.maps.Animation.BOUNCE);
+		setTimeout(function(){self.marker.setAnimation(null);}, 750);
 	};
 
 	self.marker.addListener('click', self.animation);
