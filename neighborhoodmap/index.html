@@ -3,16 +3,30 @@
 <head>
 	<title>Neighborhood Map</title>
 	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="neighborhoodmap.css" />
 </head>
 <body>
-	<header>
-		<nav class="navbar navbar-inverse navbar-static-top">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></a>
+	<div class="sidebar">
+		<h3 class="title">David Locations</h3>
+		<form>
+			<div class="input-group">
+				<input type="text" class="form-control" placeholder="Station Location" data-bind="value: filter, valueUpdate: 'afterkeydown'"/>
+				<div class="input-group-btn">
+					<button type="button" class="btn btn-primary">
+						<span class="glyphicon glyphicon-filter" aria-hidden="true"></span>Filter
+					</button>
+				</div>
 			</div>
-		</nav>
-	</header>
-	<div class="map"></div>
+		</form>
+		<ul data-bind="foreach: filteredLocations">
+			<li data-bind="text: name"></li>
+		</ul>
+	</div>
+	<div class="header"></div>
+	<div class="main" id="googleMap"></div>
 	<footer></footer>
+	<script src="http://maps.googleapis.com/maps/api/js"></script>
+	<script src="bower_components/knockout/dist/knockout.js"></script>
+	<script src="googlemap.js"></script>
 </body>
 </html>
