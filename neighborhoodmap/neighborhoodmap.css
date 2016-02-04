@@ -6,6 +6,7 @@ body {
 .sidebar {
 	float: left;
 	width: 20%;
+	min-width: 197px;
 	height: 665px;
 	background-color: black;
 }

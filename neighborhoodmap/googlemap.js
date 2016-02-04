@@ -14,12 +14,15 @@ var locationModel = function(location) {
 	var self = this;
 	self.name = location.name;
 	self.position = location.position;
+
+	// Default location description
+	self.description = "Latitude: " + self.position.lat() + ", Longitude: " + self.position.lng();
 	self.marker = new google.maps.Marker({
 		position: location.position,
 		map: map,
 	});
 
-	// Get coffee shop names near current location async
+	// Get coffee shop names near current location async from Foursquare
 	self.fsurl = "https://api.foursquare.com/v2/venues/explore?client_id=U1SH5VLS5AAFACUU0GZDUPJOOWRA5NL0MN2PVQRVJEB4KDHW&client_secret=IFDGUN2U3IXPQLVZMDMOCVRQ43J4CUZSHYREBRNK34RFSBIO&v=20130815&section=coffee&ll="+self.position.lat()+","+self.position.lng();
 	var j = $.ajax({
 			url: self.fsurl,
@@ -27,22 +30,24 @@ var locationModel = function(location) {
 			type: 'GET',
 			success: function(data, textStatus, jqXHR) {
 				var items = data.response.groups[0].items;
-				var nearCoffeeShops = "Sorry, there is no coffee shops nearby!";
 				if(items.length !== 0) {
 					var names = [];
 					items.forEach(function(item){
 						names.push(item.venue.name);
 					})
-					nearCoffeeShops = "There are " + items.length + " coffee shops! They are: " + names.join(",");
+
+					// When successfully get data from Foursquare, reset location description
+					self.description = "There are " + items.length + " coffee shops nearby! They are: " + names.join(",");
 				}
-				infoWindow.setContent(nearCoffeeShops);
+
 			},
 			error: function(jqXHR, textStatus, errorThrown){
-				infoWindow.setContent(textStatus);
+				console.log(textStatus);
 			}
 		});
 
 	self.animation = function(){
+		infoWindow.setContent(self.description);
 		infoWindow.open(map, self.marker);
 		self.marker.setAnimation(google.maps.Animation.BOUNCE);
 		setTimeout(function(){self.marker.setAnimation(null);}, 750);
@@ -51,7 +56,38 @@ var locationModel = function(location) {
 	self.marker.addListener('click', self.animation);
 };
 
-// Create locations as seeds
+// Create location list view model
+var locationListViewModel = function(locations) {
+	var self = this;
+	self.locations = ko.observableArray(locations);
+	self.filter = ko.observable("");
+
+	// Push locations that filtered out the list into this array
+	self.invisibleLocations = [];
+
+	self.filteredLocations = ko.computed(function() {
+		var filter = self.filter().toLowerCase();
+		if(!filter) { // If has no filter, set all invisible locations visible and show all locations
+			self.invisibleLocations.forEach(function(location) {
+				location.marker.setVisible(true);
+			})
+			return self.locations();
+		} else { // show locations that name contain filter or set them invisible
+			return ko.utils.arrayFilter(self.locations(), function(location) {
+				var name = location.name.toLowerCase();
+				if (name.indexOf(filter) > -1) {
+					location.marker.setVisible(true);
+					return true;
+				}
+				location.marker.setVisible(false);
+				self.invisibleLocations.push(location);
+				return false;
+			});
+		}
+	});
+};
+
+// Create 5 locations as seeds
 var locationsSeed = [
 	{
 		name: "Northern Software College",
@@ -75,43 +111,18 @@ var locationsSeed = [
 	}
 ];
 
-// Initialize locations
+// Initialize locations and show center location info
 var locations = (function(locationsSeed) {
 	var locations = [];
 	locationsSeed.forEach(function(location) {
 		locations.push(new locationModel(location));
 	})
+	infoWindow.setContent(locations[0].description);
+	infoWindow.open(map, locations[0].marker);
+	locations[0].marker.setAnimation(google.maps.Animation.BOUNCE);
+	setTimeout(function(){locations[0].marker.setAnimation(null)}, 5000);
+
 	return locations;
 }(locationsSeed));
 
-// Create location list view model
-var locationListViewModel = function(locations) {
-	var self = this;
-	self.locations = ko.observableArray(locations);
-	self.filter = ko.observable("");
-	self.invisibleLocations = [];
-
-	self.filteredLocations = ko.computed(function() {
-		var filter = self.filter().toLowerCase();
-		if(!filter) {
-			self.invisibleLocations.forEach(function(location) {
-				location.marker.setVisible(true);
-			})
-			return self.locations();
-		} else {
-			return ko.utils.arrayFilter(self.locations(), function(location) {
-				var name = location.name.toLowerCase();
-				if (name.indexOf(filter) > -1) {
-					location.marker.setVisible(true);
-					return true;
-				}
-				location.marker.setVisible(false);
-				self.invisibleLocations.push(location);
-				return false;
-			});
-		}
-	});
-};
-
-llvm = new locationListViewModel(locations);
-ko.applyBindings(llvm);
+ko.applyBindings(new locationListViewModel(locations));
