@@ -6,24 +6,26 @@
 	<link rel="stylesheet" href="neighborhoodmap.css" />
 </head>
 <body>
-	<div class="sidebar">
-		<h3 class="title">David Locations</h3>
-		<form>
-			<div class="input-group">
-				<input type="text" class="form-control" placeholder="Station Location" data-bind="value: filter, valueUpdate: 'afterkeydown'"/>
-				<div class="input-group-btn">
-					<button type="button" class="btn btn-primary">
-						<span class="glyphicon glyphicon-filter" aria-hidden="true"></span>Filter
-					</button>
+	<div class="row">
+		<div class="sidebar col-md-2">
+			<h3 class="title">David Locations</h3>
+			<form>
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Station Location" data-bind="value: filter, valueUpdate: 'afterkeydown'"/>
+					<div class="input-group-btn">
+						<button type="button" class="btn btn-primary">
+							<span class="glyphicon glyphicon-filter" aria-hidden="true"></span>Filter
+						</button>
+					</div>
 				</div>
-			</div>
-		</form>
-		<ul data-bind="foreach: filteredLocations">
-			<li data-bind="text: name, click: animation"></li>
-		</ul>
+			</form>
+			<ul data-bind="foreach: filteredLocations">
+				<li data-bind="text: name, click: animation"></li>
+			</ul>
+		</div>
+		<div class="header col-md-10"></div>
+		<div class="main col-md-10" id="googleMap"></div>
 	</div>
-	<div class="header"></div>
-	<div class="main" id="googleMap"></div>
 	<script src="bower_components/knockout/dist/knockout.js"></script>
 	<script src="bower_components/jquery/dist/jquery.min.js"></script>
 	<script src="http://maps.googleapis.com/maps/api/js"></script>
