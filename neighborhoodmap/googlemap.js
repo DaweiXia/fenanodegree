@@ -34,7 +34,7 @@ var locationModel = function(location) {
 					var names = [];
 					items.forEach(function(item){
 						names.push(item.venue.name);
-					})
+					});
 
 					// When successfully get data from Foursquare, reset location description
 					self.description = "There are " + items.length + " coffee shops nearby! They are: " + names.join(",");
