@@ -20,7 +20,7 @@
 				</div>
 			</form>
 			<ul data-bind="foreach: filteredLocations">
-				<li data-bind="text: name, click: animation"></li>
+				<li data-bind="text: name, click: animate"></li>
 			</ul>
 		</div>
 		<div class="header col-md-10"></div>
@@ -28,7 +28,7 @@
 	</div>
 	<script src="bower_components/knockout/dist/knockout.js"></script>
 	<script src="bower_components/jquery/dist/jquery.min.js"></script>
-	<script src="http://maps.googleapis.com/maps/api/js"></script>
+	<script async defer src="http://maps.googleapis.com/maps/api/js?callback=initMap" onerror="googleMapError()"></script>
 	<script src="googlemap.js"></script>
 </body>
 </html>

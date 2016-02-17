@@ -1,59 +1,122 @@
-// Initialize map property
-var mapProp = {
-	center: new google.maps.LatLng(41.920357, 123.449367),
-	zoom: 10,
-	mapTypeId: google.maps.MapTypeId.ROADMAP
-};
+//Create 5 location seeds
+var locationSeeds = [
+	{
+		name: "Northern Software College",
+		lat: 41.920357,
+		lng: 123.449367
+	},
+	{
+		name: "Beiling Park",
+		lat: 41.839764,
+		lng: 123.428420
+	},
+	{
+		name: "North Railway Station",
+		lat: 41.817067,
+		lng: 123.437389
+	},
+	{
+		name: "Palace Museum",
+		lat: 41.796389,
+		lng: 123.456343
+	},
+	{
+		name: "Qipanshan",
+		lat: 41.924587,
+		lng: 123.652345
+	}
+];
 
-// Create a map and a blank infowindow
-var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-var infoWindow = new google.maps.InfoWindow({content: ""});
+// Initialize map when google map api successfully loaded
+var map, infoWindow;
 
-// Create location model
-var locationModel = function(location) {
-	var self = this;
-	self.name = location.name;
-	self.position = location.position;
-
-	// Default location description
-	self.description = "Latitude: " + self.position.lat() + ", Longitude: " + self.position.lng();
-	self.marker = new google.maps.Marker({
-		position: location.position,
-		map: map,
-	});
-
-	// Get coffee shop names near current location async from Foursquare
-	self.fsurl = "https://api.foursquare.com/v2/venues/explore?client_id=U1SH5VLS5AAFACUU0GZDUPJOOWRA5NL0MN2PVQRVJEB4KDHW&client_secret=IFDGUN2U3IXPQLVZMDMOCVRQ43J4CUZSHYREBRNK34RFSBIO&v=20130815&section=coffee&ll="+self.position.lat()+","+self.position.lng();
-	var j = $.ajax({
-			url: self.fsurl,
-			dataType: 'json',
-			type: 'GET',
-			success: function(data, textStatus, jqXHR) {
-				var items = data.response.groups[0].items;
-				if(items.length !== 0) {
-					var names = [];
-					items.forEach(function(item){
-						names.push(item.venue.name);
-					});
-
-					// When successfully get data from Foursquare, reset location description
-					self.description = "There are " + items.length + " coffee shops nearby! They are: " + names.join(",");
-				}
-
-			},
-			error: function(jqXHR, textStatus, errorThrown){
-				console.log(textStatus);
-			}
-		});
-
-	self.animation = function(){
-		infoWindow.setContent(self.description);
-		infoWindow.open(map, self.marker);
-		self.marker.setAnimation(google.maps.Animation.BOUNCE);
-		setTimeout(function(){self.marker.setAnimation(null);}, 750);
+function initMap() {
+	var mapProp = {
+		center: new google.maps.LatLng(41.920357, 123.449367),
+		zoom: 10,
+		mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
 
-	self.marker.addListener('click', self.animation);
+	// Create a map and a blank infowindow
+	map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+	infoWindow = new google.maps.InfoWindow({content: ""});
+
+	locations.forEach(function(location){
+		location.position = new google.maps.LatLng(location.lat, location.lng);
+		location.marker = new google.maps.Marker({
+			position: location.position,
+			map: map
+		});
+
+		location.marker.addListener('click', function(){
+			location.animate();
+		});
+	})
+
+	infoWindow.setContent(locations[0].defaultDescription);
+	infoWindow.open(map, locations[0].marker);
+	locations[0].marker.setAnimation(google.maps.Animation.BOUNCE);
+	setTimeout(function(){locations[0].marker.setAnimation(null)}, 5000);
+}
+
+function googleMapError() {
+	alert("Can't load google map!");
+}
+
+// Create location model
+var LocationModel = function(location) {
+	var self = this;
+	self.name = location.name;
+	self.lat = location.lat;
+	self.lng = location.lng;
+
+	// Default location description
+	self.defaultDescription = "Latitude: " + self.lat + ", Longitude: " + self.lng;
+	self.description = null;
+	self.marker = null;
+	self.position = null;
+
+	// URL that used for getting coffee shop names near current locaiton async from Foursquare
+	self.fsurl = "https://api.foursquare.com/v2/venues/explore?client_id=U1SH5VLS5AAFACUU0GZDUPJOOWRA5NL0MN2PVQRVJEB4KDHW&client_secret=IFDGUN2U3IXPQLVZMDMOCVRQ43J4CUZSHYREBRNK34RFSBIO&v=20130815&section=coffee&ll="+self.lat+","+self.lng;
+};
+
+LocationModel.prototype.ajax = function() {
+	var self = this;
+	$.ajax({
+		url: self.fsurl,
+		dataType: 'json',
+		type: 'GET',
+		success: function(data, textStatus, jqXHR) {
+			var items = data.response.groups[0].items;
+			if(items.length !== 0) {
+				var names = [];
+				items.forEach(function(item){
+					names.push(item.venue.name);
+				});
+
+				// When successfully get data from Foursquare, reset location description
+				self.description = "There are " + items.length + " coffee shops nearby! They are: " + names.join(",");
+				infoWindow.setContent(self.description);
+			}
+
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			alert(textStatus);
+		}
+	});
+};
+
+LocationModel.prototype.animate = function() {
+	var self = this;
+	if (!self.description) {
+		self.ajax();
+		infoWindow.setContent(this.defaultDescription);
+	} else {
+		infoWindow.setContent(this.description);
+	}
+	infoWindow.open(map, this.marker);
+	this.marker.setAnimation(google.maps.Animation.BOUNCE);
+	setTimeout(function(){self.marker.setAnimation(null);}, 750);
 };
 
 // Create location list view model
@@ -80,6 +143,12 @@ var locationListViewModel = function(locations) {
 					return true;
 				}
 				location.marker.setVisible(false);
+
+				// Close info window when related marker is invisible
+				if (location.marker.position === infoWindow.position) {
+					infoWindow.close();
+				}
+
 				self.invisibleLocations.push(location);
 				return false;
 			});
@@ -87,42 +156,13 @@ var locationListViewModel = function(locations) {
 	});
 };
 
-// Create 5 locations as seeds
-var locationsSeed = [
-	{
-		name: "Northern Software College",
-		position: new google.maps.LatLng(41.920357, 123.449367),
-	},
-	{
-		name: "Beiling Park",
-		position: new google.maps.LatLng(41.839764, 123.428420),
-	},
-	{
-		name: "North Railway Station",
-		position: new google.maps.LatLng(41.817067, 123.437389),
-	},
-	{
-		name: "Palace Museum",
-		position: new google.maps.LatLng(41.796389, 123.456343),
-	},
-	{
-		name: "Qipanshan",
-		position: new google.maps.LatLng(41.924587, 123.652345),
-	}
-];
-
 // Initialize locations and show center location info
-var locations = (function(locationsSeed) {
+var locations = (function(locationSeeds) {
 	var locations = [];
-	locationsSeed.forEach(function(location) {
-		locations.push(new locationModel(location));
+	locationSeeds.forEach(function(location) {
+		locations.push(new LocationModel(location));
 	})
-	infoWindow.setContent(locations[0].description);
-	infoWindow.open(map, locations[0].marker);
-	locations[0].marker.setAnimation(google.maps.Animation.BOUNCE);
-	setTimeout(function(){locations[0].marker.setAnimation(null)}, 5000);
-
 	return locations;
-}(locationsSeed));
+}(locationSeeds));
 
 ko.applyBindings(new locationListViewModel(locations));
