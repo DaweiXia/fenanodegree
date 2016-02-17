@@ -2,10 +2,11 @@
 <html>
 <head>
 	<title>Neighborhood Map</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="neighborhoodmap.css" />
 </head>
-<body>
+<body class="container-fluid">
 	<div class="row">
 		<div class="sidebar col-md-2">
 			<h3 class="title">David Locations</h3>
@@ -23,8 +24,10 @@
 				<li data-bind="text: name, click: animate"></li>
 			</ul>
 		</div>
-		<div class="header col-md-10"></div>
-		<div class="main col-md-10" id="googleMap"></div>
+		<div class="col-md-10">
+			<div class="header"></div>
+			<div class="main" id="googleMap"></div>
+		</div>
 	</div>
 	<script src="bower_components/knockout/dist/knockout.js"></script>
 	<script src="bower_components/jquery/dist/jquery.min.js"></script>
