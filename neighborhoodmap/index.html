@@ -2,13 +2,13 @@
 <html>
 <head>
 	<title>Neighborhood Map</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
 	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="neighborhoodmap.css" />
 </head>
-<body class="container-fluid">
-	<div class="row">
-		<div class="sidebar col-md-2">
+<body>
+	<div class="container">
+		<div class="sidebar">
 			<h3 class="title">David Locations</h3>
 			<form>
 				<div class="input-group">
@@ -24,14 +24,40 @@
 				<li data-bind="text: name, click: animate"></li>
 			</ul>
 		</div>
-		<div class="col-md-10">
-			<div class="header"></div>
+
+		<div class="content">
+			<div class="header">
+				<a id="menu">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+						<path d="M2 6h20v3H2zm0 5h20v3H2zm0 5h20v3H2z"></path>
+					</svg>
+				</a>
+			</div>
+
 			<div class="main" id="googleMap"></div>
 		</div>
 	</div>
+
 	<script src="bower_components/knockout/dist/knockout.js"></script>
 	<script src="bower_components/jquery/dist/jquery.min.js"></script>
-	<script async defer src="http://maps.googleapis.com/maps/api/js?callback=initMap" onerror="googleMapError()"></script>
 	<script src="googlemap.js"></script>
+	<script async defer src="http://maps.googleapis.com/maps/api/js?callback=initMap" onerror="googleMapError()"></script>
+	<script>
+		var menu = document.querySelector("#menu");
+		var content = document.querySelector(".content");
+		var drawer = document.querySelector(".sidebar");
+		menu.addEventListener("click", function(e) {
+			if (document.body.clientWidth < 1000) {
+				drawer.classList.toggle("open");
+			}
+			e.stopPropagation();
+		});
+
+		content.addEventListener("click", function(e) {
+			if (document.body.clientWidth < 1000) {
+				drawer.classList.remove("open");
+			}
+		});
+	</script>
 </body>
 </html>

@@ -1,4 +1,6 @@
-//Create 5 location seeds
+"use strict";
+
+/** Basic information of five locations */
 var locationSeeds = [
 	{
 		name: "Northern Software College",
@@ -27,7 +29,7 @@ var locationSeeds = [
 	}
 ];
 
-// Initialize map when google map api successfully loaded
+/** Initialize map when google map api successfully loaded */
 var map, infoWindow;
 
 function initMap() {
@@ -41,6 +43,7 @@ function initMap() {
 	map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
 	infoWindow = new google.maps.InfoWindow({content: ""});
 
+	// Add google position, marker to every location and listen to click event on every marker
 	locations.forEach(function(location){
 		location.position = new google.maps.LatLng(location.lat, location.lng);
 		location.marker = new google.maps.Marker({
@@ -51,19 +54,22 @@ function initMap() {
 		location.marker.addListener('click', function(){
 			location.animate();
 		});
-	})
+	});
 
 	infoWindow.setContent(locations[0].defaultDescription);
 	infoWindow.open(map, locations[0].marker);
 	locations[0].marker.setAnimation(google.maps.Animation.BOUNCE);
-	setTimeout(function(){locations[0].marker.setAnimation(null)}, 5000);
+	setTimeout(function(){locations[0].marker.setAnimation(null);}, 5000);
 }
 
 function googleMapError() {
 	alert("Can't load google map!");
 }
 
-// Create location model
+/**
+ * Represents a location
+ * @constructor
+ */
 var LocationModel = function(location) {
 	var self = this;
 	self.name = location.name;
@@ -80,6 +86,7 @@ var LocationModel = function(location) {
 	self.fsurl = "https://api.foursquare.com/v2/venues/explore?client_id=U1SH5VLS5AAFACUU0GZDUPJOOWRA5NL0MN2PVQRVJEB4KDHW&client_secret=IFDGUN2U3IXPQLVZMDMOCVRQ43J4CUZSHYREBRNK34RFSBIO&v=20130815&section=coffee&ll="+self.lat+","+self.lng;
 };
 
+/** Request  nearby coffe shops asynchronously */
 LocationModel.prototype.ajax = function() {
 	var self = this;
 	$.ajax({
@@ -106,6 +113,7 @@ LocationModel.prototype.ajax = function() {
 	});
 };
 
+/** Bounce marker and info window */
 LocationModel.prototype.animate = function() {
 	var self = this;
 	if (!self.description) {
@@ -119,7 +127,10 @@ LocationModel.prototype.animate = function() {
 	setTimeout(function(){self.marker.setAnimation(null);}, 750);
 };
 
-// Create location list view model
+/**
+ * Location list view model
+ * @constructor
+ */
 var locationListViewModel = function(locations) {
 	var self = this;
 	self.locations = ko.observableArray(locations);
@@ -133,7 +144,7 @@ var locationListViewModel = function(locations) {
 		if(!filter) { // If has no filter, set all invisible locations visible and show all locations
 			self.invisibleLocations.forEach(function(location) {
 				location.marker.setVisible(true);
-			})
+			});
 			return self.locations();
 		} else { // show locations that name contain filter or set them invisible
 			return ko.utils.arrayFilter(self.locations(), function(location) {
@@ -156,13 +167,14 @@ var locationListViewModel = function(locations) {
 	});
 };
 
-// Initialize locations and show center location info
+/** Initialize locations and show center location info */
 var locations = (function(locationSeeds) {
 	var locations = [];
 	locationSeeds.forEach(function(location) {
 		locations.push(new LocationModel(location));
-	})
+	});
 	return locations;
 }(locationSeeds));
 
+/** Apply location list view model */
 ko.applyBindings(new locationListViewModel(locations));
