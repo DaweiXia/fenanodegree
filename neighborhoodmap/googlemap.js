@@ -29,6 +29,20 @@ var locationSeeds = [
 	}
 ];
 
+var closeSidebar = function(){
+	if (document.body.clientWidth < 1000){
+		var drawer = document.querySelector(".sidebar");
+		drawer.classList.remove("open");
+	}
+};
+
+var toggleSidebar = function(data, event) {
+	if (document.body.clientWidth < 1000) {
+		var drawer = document.querySelector(".sidebar");
+		drawer.classList.toggle("open");
+	}
+	event.stopPropagation();
+}
 /** Initialize map when google map api successfully loaded */
 var map, infoWindow;
 
@@ -125,6 +139,7 @@ LocationModel.prototype.animate = function() {
 	infoWindow.open(map, this.marker);
 	this.marker.setAnimation(google.maps.Animation.BOUNCE);
 	setTimeout(function(){self.marker.setAnimation(null);}, 750);
+	closeSidebar();
 };
 
 /**

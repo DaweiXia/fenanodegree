@@ -25,9 +25,9 @@
 			</ul>
 		</div>
 
-		<div class="content">
+		<div class="content" data-bind="click: closeSidebar">
 			<div class="header">
-				<a id="menu">
+				<a id="menu" data-bind="click: toggleSidebar">
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
 						<path d="M2 6h20v3H2zm0 5h20v3H2zm0 5h20v3H2z"></path>
 					</svg>
@@ -42,22 +42,5 @@
 	<script src="bower_components/jquery/dist/jquery.min.js"></script>
 	<script src="googlemap.js"></script>
 	<script async defer src="https://maps.googleapis.com/maps/api/js?callback=initMap" onerror="googleMapError()"></script>
-	<script>
-		var menu = document.querySelector("#menu");
-		var content = document.querySelector(".content");
-		var drawer = document.querySelector(".sidebar");
-		menu.addEventListener("click", function(e) {
-			if (document.body.clientWidth < 1000) {
-				drawer.classList.toggle("open");
-			}
-			e.stopPropagation();
-		});
-
-		content.addEventListener("click", function(e) {
-			if (document.body.clientWidth < 1000) {
-				drawer.classList.remove("open");
-			}
-		});
-	</script>
 </body>
 </html>
