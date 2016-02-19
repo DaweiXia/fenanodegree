@@ -130,7 +130,7 @@ LocationModel.prototype.animate = function() {
 LocationModel.prototype.animateAndCloseSidebar = function(){
 	this.animate();
 	llvm.closeSidebar();
-}
+};
 
 /**
  * Location list view model
