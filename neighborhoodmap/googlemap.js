@@ -197,5 +197,5 @@ var locations = (function(locationSeeds) {
 }(locationSeeds));
 
 /** Apply location list view model */
-var llvm = new locationListViewModel(locations)
+var llvm = new locationListViewModel(locations);
 ko.applyBindings(llvm);
