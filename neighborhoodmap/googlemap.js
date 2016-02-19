@@ -29,20 +29,6 @@ var locationSeeds = [
 	}
 ];
 
-var closeSidebar = function(){
-	if (document.body.clientWidth < 1000){
-		var drawer = document.querySelector(".sidebar");
-		drawer.classList.remove("open");
-	}
-};
-
-var toggleSidebar = function(data, event) {
-	if (document.body.clientWidth < 1000) {
-		var drawer = document.querySelector(".sidebar");
-		drawer.classList.toggle("open");
-	}
-	event.stopPropagation();
-}
 /** Initialize map when google map api successfully loaded */
 var map, infoWindow;
 
@@ -139,7 +125,7 @@ LocationModel.prototype.animate = function() {
 	infoWindow.open(map, this.marker);
 	this.marker.setAnimation(google.maps.Animation.BOUNCE);
 	setTimeout(function(){self.marker.setAnimation(null);}, 750);
-	closeSidebar();
+	llvm.closeSidebar();
 };
 
 /**
@@ -180,6 +166,25 @@ var locationListViewModel = function(locations) {
 			});
 		}
 	});
+
+	/** Close location list after clicked the location or content area
+	  * when screen width is less than 1000
+	  */
+	self.closeSidebar = function(){
+		if (document.body.clientWidth < 1000){
+			var drawer = document.querySelector(".sidebar");
+			drawer.classList.remove("open");
+		}
+	};
+
+	/** Toggle location list when screen width is less than 1000 */
+	self.toggleSidebar = function(data, event) {
+		if (document.body.clientWidth < 1000) {
+			var drawer = document.querySelector(".sidebar");
+			drawer.classList.toggle("open");
+		}
+		event.stopPropagation();
+	};
 };
 
 /** Initialize locations and show center location info */
@@ -192,4 +197,5 @@ var locations = (function(locationSeeds) {
 }(locationSeeds));
 
 /** Apply location list view model */
-ko.applyBindings(new locationListViewModel(locations));
+var llvm = new locationListViewModel(locations)
+ko.applyBindings(llvm);
