@@ -125,8 +125,12 @@ LocationModel.prototype.animate = function() {
 	infoWindow.open(map, this.marker);
 	this.marker.setAnimation(google.maps.Animation.BOUNCE);
 	setTimeout(function(){self.marker.setAnimation(null);}, 750);
-	llvm.closeSidebar();
 };
+
+LocationModel.prototype.animateAndCloseSidebar = function(){
+	this.animate();
+	llvm.closeSidebar();
+}
 
 /**
  * Location list view model

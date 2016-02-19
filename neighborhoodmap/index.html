@@ -21,7 +21,7 @@
 				</div>
 			</form>
 			<ul data-bind="foreach: filteredLocations">
-				<li data-bind="text: name, click: animate"></li>
+				<li data-bind="text: name, click: animateAndCloseSidebar, event: {mouseover: animate}"></li>
 			</ul>
 		</div>
 
