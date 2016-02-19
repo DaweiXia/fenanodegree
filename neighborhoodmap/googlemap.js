@@ -59,7 +59,7 @@ function initMap() {
 	infoWindow.setContent(locations[0].defaultDescription);
 	infoWindow.open(map, locations[0].marker);
 	locations[0].marker.setAnimation(google.maps.Animation.BOUNCE);
-	setTimeout(function(){locations[0].marker.setAnimation(null);}, 5000);
+	setTimeout(function(){locations[0].marker.setAnimation(null);}, 4500);
 }
 
 function googleMapError() {
