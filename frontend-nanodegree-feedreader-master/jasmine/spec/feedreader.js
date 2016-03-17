@@ -86,7 +86,15 @@ $(function() {
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
+         beforeEach(function(done){
+            loadFeed(0, done);
+         });
+
+         it('should have at least one entry within the feed container after loadFeed function is called', function() {
+            expect($('.feed').length).toBeGreaterThan(0);
+         });
     })
+    
     /* TODO: Write a new test suite named "New Feed Selection"
 
         /* TODO: Write a test that ensures when a new feed is loaded
