@@ -37,3 +37,37 @@ You will learn how to use Jasmine to write a number of tests against a pre-exist
 12. Write a test that ensures when the loadFeed function is called and completes its work, there is at least a single .entry element within the .feed container. Remember, loadFeed() is asynchronous so this test wil require the use of Jasmine's beforeEach and asynchronous done() function.
 13. Write a test that ensures when a new feed is loaded by the loadFeed function that the content actually changes. Remember, loadFeed() is asynchronous.
 14. When complete - all of your tests should pass.
+
+# My Steps
+
+## Test suite for RSS feeds
+
+### Make sure that allFeeds variable has been defined and is not empty
+
+1. Use toBeDefined function to make sure allFeeds variable has been defined.
+2. Use .not.toBe to make sure that allFeeds is not empty.
+
+### Make sure all feeds in allFeeds have an url that is not empty
+
+1. Iterate all feeds in allFeed to make sure that all of them have url and url is not empty.
+
+### Make sure all feeds in allFeeds have an name that is not empty
+
+1. Iterate all feeds in allFeed to make sure that all of them have name and name is not empty.
+
+## Test suite for the menu
+
+1. Select body and check whether it has class 'menu-hidden' to make sure the menu is hidden by default
+2. Trigger click on '.icon-list' to toggle the menu, then check whether body has class 'menu-hidden' to make sure we can change the visibility of the menu
+
+## Test suite for initial entries
+
+1. Load feed 0 before each tests in this suite and make sure there are at least one entry in the feed container after feed 0 has been loaded
+
+## Test suite for new feed selection
+
+1. Before each tests in this suite, we store the html of feed container and load feed 1 after load feed 0, then make sure that the new html of feed container is different to the old one.
+
+
+
+
